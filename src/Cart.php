@@ -5,21 +5,23 @@ namespace App;
 class Cart
 {
     public function __construct(
-        private array $items = [],
-        private string $status = 'aberto',
+        /**
+         * @var Product[] $products
+         */
+        private array $products = [],
         private float $totalValue = 0
     ) {
     }
 
-    public function getItems(): array
+    public function getProducts(): array
     {
-        return $this->items;
+        return $this->products;
     }
 
-    public function addItem(string $item, float $value): void
+    public function addProduct(Product $product): void
     {
-        array_push($this->items, ["item" => $item, "valor" => $value]);
-        $this->totalValue += $value;
+        $this->products[] = $product;
+        $this->totalValue += $product->getValue();
     }
 
     public function getTotalValue(): float
@@ -27,29 +29,8 @@ class Cart
         return $this->totalValue;
     }
 
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    public function confirmOrder(): bool
-    {
-        if (!$this->validateCart()) {
-            return false;
-        }
-
-        $this->status = 'confirmado';
-        $this->sendConfirmEmail();
-        return true;
-    }
-
-    public function sendConfirmEmail(): void
-    {
-        echo "Enviando e-mail de confirmação... <br/>";
-    }
-
     public function validateCart(): bool
     {
-        return count($this->items) > 0;
+        return count($this->products) > 0;
     }
 }

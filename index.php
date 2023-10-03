@@ -1,32 +1,41 @@
 <?php
 
 use App\Cart;
+use App\Order;
+use App\Product;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-$carrinho1 = new Cart();
-var_dump($carrinho1->getItems());
-echo "<br/>";
-echo "Valor total: {$carrinho1->getTotalValue()}";
+$tv = new Product("Televisão", 999.90);
+$freezer = new Product("Geladeira", 1999.90);
+$table = new Product("Mesa", 469.90);
 
-/*$carrinho1->addItem('Bicicleta', 750.10);
-$carrinho1->addItem('Geladeira', 1950.15);
-$carrinho1->addItem('Tapete', 350.20);*/
+$cart = new Cart();
+$order = new Order($cart);
 
-echo "<br/>";
-var_dump($carrinho1->getItems());
-echo "<br/>";
-echo "Valor total recalculado: {$carrinho1->getTotalValue()}";
-echo "<br/>";
-echo "Status: {$carrinho1->getStatus()}";
-echo "<br/>";
+echo "<h3>Pedido Iniciado</h3>";
+var_dump($order);
 
-$carrinho1->addItem('Geladeira', 1950.15);
+$order->getCart()->addProduct($tv);
+$order->getCart()->addProduct($freezer);
+$order->getCart()->addProduct($table);
 
-if ($carrinho1->confirmOrder()) {
-    echo "Pedido realizado com sucesso!";
-} else {
-    echo "O carrinho não possui itens!";
+echo "<h3>Pedido Com Itens</h3>";
+var_dump($order);
+echo "<h4>Itens do pedido</h4>";
+foreach ($order->getCart()->getProducts() as $product){
+    echo "{$product->getDescription()} - {$product->getValue()} <br/>";
 }
-echo "<br/>";
-echo "Status: {$carrinho1->getStatus()}";
+
+
+echo "<h3>Carrinho válido</h3>";
+echo $order->getCart()->validateCart();
+
+echo "<h3>Status do pedido</h3>";
+$status = $order->getStatus();
+echo $status->value;
+
+$order->confirm();
+
+echo "<h3>Pedido Confirmado</h3>";
+var_dump($order);
