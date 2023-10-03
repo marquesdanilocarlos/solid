@@ -6,7 +6,7 @@ use App\Product;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-$tv = new Product("Televisão", 999.90);
+$tv = new Product("", 999.90);
 $freezer = new Product("Geladeira", 1999.90);
 $table = new Product("Mesa", 469.90);
 
