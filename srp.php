@@ -1,8 +1,8 @@
 <?php
 
-use App\Cart;
-use App\Order;
-use App\Product;
+use App\SRP\Cart;
+use App\SRP\Order;
+use App\SRP\Product;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
