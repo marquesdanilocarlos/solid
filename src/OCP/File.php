@@ -2,9 +2,15 @@
 
 namespace App\OCP;
 
-class File
+abstract class File
 {
-    private array $data = [];
+    protected array $data = [];
+
+    public function __construct(
+        protected string $name
+    )
+    {
+    }
 
     public function setData(array $data): void
     {
@@ -12,34 +18,9 @@ class File
         $this->data[] = $data;
     }
 
-    public function getData(): array
-    {
-        return $this->data;
-    }
+    protected abstract function getData(): array;
 
-    public function readCSV(string $path): void
-    {
-        $handle = fopen($path, 'r');
+    public abstract function getName(): string;
 
-        while ($data = fgetcsv($handle, null, ";")) {
-            $this->setData($data);
-        }
-
-        fclose($handle);
-    }
-
-    public function readTXT(string $path): void
-    {
-        $handle = fopen($path, 'r');
-
-        while (!feof($handle)) {
-            $line = fgets($handle);
-            $cpf = substr($line, 0, 11);
-            $name = substr($line, 11, 30);
-            $email = substr($line, 41, 50);
-            $this->setData([$cpf, $name, $email]);
-        }
-
-        fclose($handle);
-    }
+    public abstract function read(string $path): void;
 }
