@@ -2,7 +2,7 @@
 
 namespace App\LSP;
 
-class Rectangle
+class Rectangle implements FormInterface
 {
     public function __construct(
         protected float $width,
@@ -19,10 +19,5 @@ class Rectangle
     public function getHeigth(): float
     {
         return $this->heigth;
-    }
-
-    public function getArea(): float
-    {
-        return $this->getHeigth() * $this->getWidth();
     }
 }
