@@ -3,18 +3,13 @@
 namespace App\ISP\DAO;
 
 use App\ISP\Database;
+use App\ISP\Interfaces\NotificationInterface;
 use App\ISP\Interfaces\RegisterInterface;
-use App\ISP\Log;
 use App\ISP\Notification;
 
-class LeadModel extends Database implements RegisterInterface
+class LeadModel extends Database implements RegisterInterface, NotificationInterface
 {
     public function save(): bool
-    {
-        return true;
-    }
-
-    public function logRegister(Log $log): bool
     {
         return true;
     }

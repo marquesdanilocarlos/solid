@@ -14,14 +14,4 @@ class ContractModel extends Database implements RegisterInterface
         return true;
     }
 
-    public function logRegister(Log $log): bool
-    {
-        return true;
-    }
-
-    public function sendNotification(Notification $notification): bool
-    {
-        return true;
-    }
-
 }
